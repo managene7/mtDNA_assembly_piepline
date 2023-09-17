@@ -951,8 +951,9 @@ def main():
     print ("xml file size: ", xml_size,"byte")
     print ("Used RAM per thread: ", option_dict['-mem_per_thread'])
     while 1:
-        line=in_xml.readline().strip()
+        line=in_xml.readline()
         tot_size+=len(line)
+        line=line.strip()
         if "<Iteration>" in line:
             init=1
         if init==1:
@@ -990,7 +991,7 @@ def main():
                 for proc in jobs:
                     proc.join()
                 
-                progress=round((tot_size/xml_size)*100, 2)
+                progress=100
                 print ("Blast xml parsing: "+str(progress)+"% has processed..")
                 
                 
@@ -999,7 +1000,6 @@ def main():
                     if cont!=[]:
                         for sub_cont in cont:
                             out_csv_list.append(sub_cont)
-                            print (sub_cont)
                 out_csv_list.sort()
                 
                 break
@@ -1018,10 +1018,11 @@ def main():
     csv_file.writerow(title_line)
     for row in out_csv_list:
         csv_file.writerow(row)
-    print ("Blast xml parsing has completed!")
+    print ("Blast xml parsing has completed!\n")
 if __name__=="__main__":
     main()
 
                                  
+
 
 
